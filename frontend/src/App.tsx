@@ -1,3 +1,4 @@
+// Trigger redeploy: update for API base URL troubleshooting
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import './App.css'
 import shoppingCart from './assets/shopping-cart.png';
