@@ -1,95 +1,67 @@
-# Deployment Guide - Render (Free)
+# GitHub Pages Deployment Guide
+
+This guide will help you deploy your Item Tracker application to GitHub Pages.
 
 ## Prerequisites
 
-1. **GitHub Account** - Push your code to GitHub
-2. **Render Account** - Sign up at [render.com](https://render.com)
-3. **MongoDB Atlas** - Free cloud database
+1. Make sure your code is pushed to a GitHub repository
+2. The repository should be named `Item-Tracker` (or update the base URL in `frontend/vite.config.ts`)
 
-## Step 1: Set up MongoDB Atlas (Free)
+## Setup Steps
 
-1. Go to [mongodb.com/atlas](https://mongodb.com/atlas)
-2. Create free account
-3. Create a new cluster (free tier)
-4. Get your connection string
-5. Add your IP to whitelist (or use 0.0.0.0/0 for all IPs)
+### 1. Enable GitHub Pages
 
-## Step 2: Push Code to GitHub
+1. Go to your GitHub repository
+2. Click on "Settings" tab
+3. Scroll down to "Pages" section in the left sidebar
+4. Under "Source", select "GitHub Actions"
+5. This will allow the workflow to deploy automatically
+
+### 2. Push Your Code
+
+The GitHub Actions workflow will automatically trigger when you push to the main branch:
 
 ```bash
 git add .
-git commit -m "Ready for deployment"
+git commit -m "Add GitHub Pages deployment"
 git push origin main
 ```
 
-## Step 3: Deploy to Render
+### 3. Monitor Deployment
 
-### Option A: Using render.yaml (Recommended)
+1. Go to your repository on GitHub
+2. Click on the "Actions" tab
+3. You should see the "Deploy to GitHub Pages" workflow running
+4. Wait for it to complete successfully
 
-1. Go to [render.com](https://render.com)
-2. Click "New +" → "Blueprint"
-3. Connect your GitHub repository
-4. Render will automatically detect the `render.yaml` file
-5. Click "Apply"
+### 4. Access Your Site
 
-### Option B: Manual Setup
+Once deployment is complete, your site will be available at:
+`https://[your-username].github.io/Item-Tracker/`
 
-#### Backend Service:
-1. Click "New +" → "Web Service"
-2. Connect GitHub repo
-3. Configure:
-   - **Name**: `item-tracker-backend`
-   - **Root Directory**: `backend`
-   - **Build Command**: `npm install && npm run build`
-   - **Start Command**: `npm start`
-   - **Plan**: Free
+## Manual Deployment
 
-#### Frontend Service:
-1. Click "New +" → "Static Site"
-2. Connect GitHub repo
-3. Configure:
-   - **Name**: `item-tracker-frontend`
-   - **Root Directory**: `frontend`
-   - **Build Command**: `npm install && npm run build`
-   - **Publish Directory**: `dist`
-   - **Plan**: Free
+If you want to deploy manually:
 
-## Step 4: Environment Variables
+```bash
+# Install dependencies
+npm run install:all
 
-Add these to your backend service in Render:
+# Build the frontend
+npm run build
 
-- `NODE_ENV`: `production`
-- `MONGODB_URI`: Your MongoDB Atlas connection string
-- `GMAIL_USER`: Your Gmail address
-- `GMAIL_APP_PASSWORD`: Your Gmail app password
-- `NOTIFICATION_EMAIL`: Email for notifications
-
-Add this to your frontend service:
-- `VITE_API_BASE_URL`: `https://your-backend-name.onrender.com/api`
-
-## Step 5: Custom Domain (Optional)
-
-1. Buy a domain (e.g., from Namecheap, ~$10/year)
-2. In Render, go to your service → Settings → Custom Domains
-3. Add your domain
-4. Update DNS records as instructed
-
-## URLs
-
-After deployment, your app will be available at:
-- **Frontend**: `https://item-tracker-frontend.onrender.com`
-- **Backend**: `https://item-tracker-backend.onrender.com`
-
-## Free Tier Limits
-
-- **Build time**: 500 minutes/month
-- **Runtime**: Services sleep after 15 minutes of inactivity
-- **Bandwidth**: 100GB/month
-- **Perfect for low-traffic apps!**
+# The built files will be in frontend/dist/
+```
 
 ## Troubleshooting
 
-1. **Build fails**: Check build logs in Render dashboard
-2. **CORS errors**: Ensure backend CORS is configured correctly
-3. **Database connection**: Verify MongoDB Atlas connection string
-4. **Cold starts**: First request after inactivity may take 30-60 seconds 
+- If the site doesn't load, check that the repository name matches the base URL in `vite.config.ts`
+- Make sure GitHub Pages is enabled in your repository settings
+- Check the Actions tab for any build errors
+- Verify that the main branch is being used for deployment
+
+## Notes
+
+- The backend API will need to be hosted separately (e.g., on Heroku, Railway, or similar)
+- Update the API endpoints in your frontend code to point to your hosted backend
+- GitHub Pages only serves static files, so the backend cannot be hosted there 
