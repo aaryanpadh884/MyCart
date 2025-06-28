@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import shoppingCart from './assets/shopping-cart.png';
 import refreshIcon from './assets/refresh-icon.png';
-import folderIcon from './assets/folder-icon.png';
 import editIcon from './assets/edit-icon.png';
 import notificationIcon from './assets/notification-icon.png';
 
@@ -440,113 +437,22 @@ function App() {
 
   const openAddItemModal = () => {
     setShowAddItemModal(true);
-    setAddItemMode('tracked');
-    setMessage('');
-  };
-
-  const handleCheckStock = async (productUrl: string) => {
-    setMessage('');
-    setLoading(true);
-    try {
-      const res = await fetch(`${API_BASE}/check-stock`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: productUrl })
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setMessage('Stock status updated!');
-        fetchProducts();
-      } else {
-        setMessage(data.error || 'Failed to check stock status');
-      }
-    } catch (err) {
-      setMessage('Network error');
-    }
-    setLoading(false);
-  };
-
-  const handleCheckStockManual = async (productUrl: string) => {
-    setMessage('');
-    setLoading(true);
-    try {
-      const res = await fetch(`${API_BASE}/check-stock-manual`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: productUrl })
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setMessage('Stock status updated!');
-        fetchManualProducts();
-      } else {
-        setMessage(data.error || 'Failed to check stock status');
-      }
-    } catch (err) {
-      setMessage('Network error');
-    }
-    setLoading(false);
-  };
-
-  const getStockStatusColor = (inStock: boolean | null, stockStatus?: string) => {
-    if (inStock === true) return '#28a745'; // Green for in stock
-    if (inStock === false) return '#dc3545'; // Red for out of stock
-    if (stockStatus?.toLowerCase().includes('limited')) return '#ffc107'; // Yellow for limited
-    return '#6c757d'; // Gray for unknown
-  };
-
-  const getStockStatusText = (inStock: boolean | null, stockStatus?: string) => {
-    if (stockStatus) return stockStatus;
-    if (inStock === true) return 'In Stock';
-    if (inStock === false) return 'Out of Stock';
-    return 'Unknown';
-  };
-
-  const startEdit = (product: Product) => {
-    setEditState({
-      ...editState,
-      [product._id]: {
-        editing: true,
-        price: product.price?.toString() ?? '',
-        stockStatus: product.stockStatus ?? '',
-        inStock: product.inStock === true ? 'true' : product.inStock === false ? 'false' : ''
-      }
-    });
-  };
-
-  const cancelEdit = (productId: string) => {
-    setEditState({ ...editState, [productId]: { ...editState[productId], editing: false } });
-  };
-
-  const saveEdit = async (product: Product) => {
-    const { price, inStock } = editState[product._id];
-    const statusString = inStock === 'true' ? 'In Stock' : 'Out of Stock';
-    await fetch(`${API_BASE}/products/${product._id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        price: parseFloat(price),
-        inStock: inStock === 'true' ? true : false,
-        stockStatus: statusString
-      })
-    });
-    setEditState({ ...editState, [product._id]: { ...editState[product._id], editing: false } });
-    fetchProducts();
   };
 
   const handleRefreshAll = async () => {
     setLoading(true);
-    setMessage('Refreshing all tracked products...');
+    setMessage('');
     try {
-      await Promise.all(products.map(async (product) => {
+      // Refresh all tracked products
+      for (const product of products) {
         await fetch(`${API_BASE}/check-price`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url: product.url })
         });
-      }));
-      setMessage('All tracked products refreshed!');
+      }
       fetchProducts();
+      setMessage('All products refreshed successfully!');
     } catch (err) {
       setMessage('Failed to refresh all products');
     }
