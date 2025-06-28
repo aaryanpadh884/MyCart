@@ -197,14 +197,20 @@ app.delete('/api/manual-products/:id', async (req, res) => {
 // Folder API endpoints
 app.post('/api/folders', async (req, res) => {
   const { name, description, color } = req.body;
+  console.log('Creating folder with data:', { name, description, color });
+  
   if (!name) {
+    console.log('Folder creation failed: name is required');
     return res.status(400).json({ error: 'Folder name is required' });
   }
   try {
     const folder = new Folder({ name, description, color });
+    console.log('Folder object created:', folder);
     await folder.save();
+    console.log('Folder saved successfully:', folder);
     res.json({ message: 'Folder created successfully', folder });
   } catch (err) {
+    console.error('Error creating folder:', err);
     res.status(500).json({ error: 'Failed to create folder' });
   }
 });

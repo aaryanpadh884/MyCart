@@ -287,13 +287,18 @@ function App() {
     if (!folderName.trim()) return;
     
     setLoading(true);
+    const folderData = { name: folderName, description: folderDescription, color: folderColor };
+    console.log('Sending folder creation request:', folderData);
+    
     try {
       const res = await fetch(`${API_BASE}/folders`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: folderName, description: folderDescription, color: folderColor })
+        body: JSON.stringify(folderData)
       });
       const data = await res.json();
+      console.log('Folder creation response:', { status: res.status, data });
+      
       if (res.ok) {
         setMessage('Folder created successfully!');
         setFolderName('');
@@ -305,6 +310,7 @@ function App() {
         setMessage(data.error || 'Failed to create folder');
       }
     } catch (err) {
+      console.error('Error creating folder:', err);
       setMessage('Network error');
     }
     setLoading(false);
