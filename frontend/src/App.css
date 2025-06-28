@@ -1,0 +1,321 @@
+body, input, textarea, select, button, h1, h2, h3, h4, h5, h6, label, p, a, span, div {
+  font-family: 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace !important;
+}
+
+body {
+  background: #000 !important;
+  color: #fff !important;
+}
+.App {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+#root {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 2rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background-color: #000 !important;
+  color: #fff !important;
+  padding: 32px;
+  border-radius: 8px;
+  min-width: 400px;
+  max-width: 500px;
+  border: 1px solid #444;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.modal-header,
+.modal-body {
+  background: transparent !important;
+  color: #fff !important;
+}
+
+.modal-content input,
+.modal-content textarea,
+.modal-content select {
+  background: #000 !important;
+  color: #fff !important;
+  border: 1px solid #444 !important;
+}
+
+.modal-content label {
+  color: #fff !important;
+}
+
+.modal-content option {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.modal-header h2 {
+  margin: 0;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.add-item-button {
+  background: #000 !important;
+  color: #fff !important;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-item-button:hover {
+  background-color: #0056b3;
+}
+
+.refresh-all-button {
+  background: #000 !important;
+  color: #fff !important;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.refresh-all-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.refresh-all-button:hover:enabled {
+  background-color: #000 !important;
+}
+
+.App-header {
+  margin-bottom: 40px;
+}
+
+.folder-container {
+  margin-bottom: 40px;
+}
+
+.folder-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filters-title {
+  margin: 0;
+}
+
+.folder-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.folder-filter-button {
+  background-color: #555;
+  color: white;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  transition: box-shadow 0.2s, background-color 0.2s;
+  padding: 8px 12px;
+}
+.folder-filter-button:first-child {
+  background-color: #000 !important;
+}
+.folder-filter-button.active {
+  background-color: #000 !important;
+  box-shadow: 0 0 0 2px #007bff;
+}
+.folder-filter-button:hover {
+  background-color: #222 !important;
+}
+
+.folder-filter-button.active:hover {
+  background-color: #555;
+}
+
+.folder-button-actions {
+  display: flex;
+  gap: 4px;
+  margin-left: 8px;
+}
+
+.create-folder-button-new {
+  background: #000 !important;
+  color: #fff !important;
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin-left: 2px;
+  padding: 0;
+}
+
+.folder-action-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.folder-action-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.modal-content button {
+  background: #000 !important;
+  color: #fff !important;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 20px;
+  transition: background 0.2s;
+}
+.modal-content button:hover:enabled {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+.edit-menu-popup {
+  background: #111;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 8px;
+  min-width: 180px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  z-index: 10;
+  padding: 0;
+  position: absolute;
+  top: 40px;
+  right: 16px;
+}
+.edit-menu-popup button {
+  width: 100%;
+  background: none;
+  color: #fff;
+  border: none;
+  padding: 12px 16px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.2s;
+}
+.edit-menu-popup button:hover {
+  background: #222;
+}
+.edit-menu-popup .cancel {
+  color: #aaa;
+  font-size: 14px;
+  padding: 8px 16px;
+}
+.edit-menu-popup .cancel:hover {
+  background: #222;
+}
+.edit-icon-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
